@@ -1,0 +1,109 @@
+:root {
+  --brand-maroon: #6b0f2a;
+  --brand-maroon-dark: #500b21;
+  --brand-gold: #b5882b;
+  --brand-gold-dark: #956f21;
+}
+
+/* === CONTENEDOR DE BANNERS === */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 20px auto;
+  max-width: 900px; /* más corto como en el original */
+}
+
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* === TARJETA ROJA === */
+.card-maroon {
+  background: var(--brand-maroon);
+  color: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 160px; /* altura equilibrada */
+}
+
+/* === TÍTULOS === */
+.card-maroon h3 {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: right; /* como en el original */
+}
+
+/* === BOTÓN DORADO === */
+.btn-solid {
+  display: inline-block;
+  background: var(--brand-gold);
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 4px;
+  font-weight: 700;
+  margin-top: 10px;
+  transition: background 0.2s ease-in-out;
+}
+
+.btn-solid:hover {
+  background: var(--brand-gold-dark);
+}
+
+/* === BOTÓN OUTLINE (presidente.gob.mx) === */
+.btn-outline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid var(--brand-gold);
+  color: var(--brand-gold);
+  padding: 40px 50px;
+  border-radius: 6px;
+  font-weight: 900;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  max-width: 250px;
+}
+
+.btn-outline:hover {
+  background: var(--brand-gold);
+  color: #fff;
+}
+
+.btn-outline span {
+  font-size: 18px;
+  color: var(--brand-gold);
+}
+
+.btn-outline:hover span {
+  color: #fff;
+}
+
+/* === BLOQUE VEHÍCULOS === */
+.vehiculos-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vehiculos-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  gap: 16px;
+}
+
+.car-icon-big {
+  height: 100px;
+  width: auto;
+}
