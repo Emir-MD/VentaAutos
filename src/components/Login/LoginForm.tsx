@@ -1,99 +1,100 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 
-export default function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [otp, setOtp] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [done, setDone] = useState(false);
+interface Props {
+  onClose: () => void;
+}
 
-  const campaign = useMemo(() => {
-    const p = new URLSearchParams(window.location.search);
-    return { cid: p.get("cid") ?? "demo", uid: p.get("uid") ?? "anon" };
-  }, []);
+export default function LoginForm({ onClose }: Props) {
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitting(true);
+    setLoading(true);
+    setError("");
+    setSuccess(false);
 
-    // Simulación ética: NO envía credenciales reales fuera.
-    console.info("[training-capture]", {
-      ts: new Date().toISOString(),
-      email, pwd, otp, ...campaign,
-      ua: navigator.userAgent,
-    });
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usuario, password }),
+      });
 
-    await new Promise((r) => setTimeout(r, 500));
-    setSubmitting(false);
-    setDone(true);
+      if (!res.ok) throw new Error("Credenciales inválidas");
+
+      const data = await res.json();
+      console.log("Respuesta del backend:", data);
+
+      setSuccess(true);
+      if (data.token) localStorage.setItem("token", data.token);
+    } catch (err: any) {
+      setError(err.message || "Error de conexión");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <section className="panel">
-      <h2>Acceso a servicios</h2>
-      <p className="muted">
-        Inicia sesión con tu correo institucional para continuar. Esta es una simulación ética con fines de capacitación.
-      </p>
+    <div className="login-overlay">
+      <div className="login-modal">
+        {/* Botón de cerrar */}
+        <button className="close-btn" onClick={onClose} aria-label="Cerrar">
+          ✕
+        </button>
 
-      {!done ? (
-        <form onSubmit={handleSubmit} style={{ marginTop: 16 }}>
-          <div className="row">
-            <label htmlFor="email" className="label">Correo electrónico</label>
-            <input
-              id="email"
-              type="email"
-              required
-              className="input"
-              placeholder="nombre@empresa.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+        <h2>Acceso institucional</h2>
+        <p className="muted">Inicia sesión con tu usuario institucional.</p>
 
-          <div className="row">
-            <label htmlFor="pwd" className="label">Contraseña</label>
-            <input
-              id="pwd"
-              type="password"
-              required
-              className="input"
-              placeholder="••••••••"
-              value={pwd}
-              onChange={(e) => setPwd(e.target.value)}
-            />
-          </div>
-
-          <div className="row">
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-              <label htmlFor="otp" className="label">Código de verificación (OTP)</label>
-              <span className="muted" style={{ fontSize: 12 }}>(si aplica)</span>
+        {!success ? (
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <label htmlFor="usuario" className="label">
+                Usuario institucional
+              </label>
+              <input
+                id="usuario"
+                type="text"
+                required
+                className="input"
+                placeholder="usuario@institucion.mx"
+                value={usuario}
+                onChange={(e) => setUsuario(e.target.value)}
+              />
             </div>
-            <input
-              id="otp"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              className="input"
-              placeholder="123456"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
-          </div>
 
-          <div className="actions">
-            <button className="btn-primary" disabled={submitting}>
-              {submitting ? "Verificando…" : "Continuar"}
-            </button>
-          </div>
+            <div className="row">
+              <label htmlFor="password" className="label">
+                Contraseña
+              </label>
+              <input
+                id="password"
+                type="password"
+                required
+                className="input"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-          <p className="note">
-            Esta página es parte de una <strong>simulación de seguridad</strong> autorizada. No pertenece a entidades oficiales.
-          </p>
-        </form>
-      ) : (
-        <div className="success">
-          <strong>¡Listo!</strong> Esta fue una simulación de seguridad. No se almacenan credenciales reales.
-        </div>
-      )}
-    </section>
+            {error && <p className="error">{error}</p>}
+
+            <div className="actions">
+              <button className="btn-primary" disabled={loading}>
+                {loading ? "Ingresando…" : "Ingresar"}
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="success">
+            <strong>¡Bienvenido!</strong> Has iniciado sesión correctamente.
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

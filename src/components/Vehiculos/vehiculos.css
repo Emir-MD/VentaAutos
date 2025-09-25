@@ -1,0 +1,191 @@
+.vehiculos-page {
+  padding: 20px;
+}
+
+.vehiculos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.vehiculo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none; /* quita subrayado del link */
+  color: inherit;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.vehiculo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  border-color: var(--brand-maroon);
+}
+
+.vehiculo-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.vehiculo-card h4 {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.vehiculo-precio {
+  font-weight: bold;
+  color: var(--brand-maroon);
+  margin-bottom: 8px;
+}
+
+.btn-solid {
+  display: inline-block;
+  background: #6b0f2a;
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.btn-solid:hover {
+  background: #500b21;
+}
+
+.btn-outline {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #6b0f2a;
+  color: #6b0f2a;
+  padding: 8px 16px;
+  margin-left: 8px;
+  border-radius: 6px;
+}
+
+.btn-outline:hover {
+  background: #6b0f2a;
+  color: #fff;
+}
+/* ===== Detalle Vehículo ===== */
+.vehiculo-detail-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.volver-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: var(--brand-maroon);
+  font-weight: bold;
+}
+
+.vehiculo-detail-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  background: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Imagen grande */
+.vehiculo-detail-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vehiculo-detail-img {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+/* Miniaturas */
+.galeria-thumbs {
+  display: flex;
+  gap: 10px;
+}
+
+.thumb {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s;
+}
+
+.thumb.active, 
+.thumb:hover {
+  border: 2px solid var(--brand-maroon);
+}
+
+/* Información */
+.vehiculo-detail-right h2 {
+  margin: 0 0 12px 0;
+  font-size: 24px;
+}
+
+.vehiculo-precio {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--brand-maroon);
+  margin-bottom: 20px;
+}
+
+.vehiculo-actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.btn-solid {
+  background: var(--brand-maroon);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-solid:hover {
+  background: var(--brand-maroon-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--brand-maroon);
+  color: var(--brand-maroon);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-outline:hover {
+  background: var(--brand-maroon);
+  color: #fff;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 14px;
+}

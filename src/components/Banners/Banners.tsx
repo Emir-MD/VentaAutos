@@ -21,9 +21,10 @@ export default function Banners() {
         </h3>
         <div className="vehiculos-row">
           <img src="/car.png" alt="Vehículo" className="car-icon-big" />
-          <a href="#vehiculos" className="btn-solid">
+          <a href="/vehiculos" className="btn-solid">
             Vehículos
           </a>
+
         </div>
       </div>
     </section>
